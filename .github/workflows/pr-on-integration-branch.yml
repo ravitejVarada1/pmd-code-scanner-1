@@ -100,7 +100,7 @@ jobs:
             - name: 'Scan code'
               run: |
                   cd changed-sources
-                  sfdx scanner:run --format sarif --target './**/*.cls' --category "Design,Best Practices,Performance" --outfile 'apexScanResults.html'  
+                  sfdx scanner:run --format sarif --target './**/' --category "Design,Best Practices,Performance" --outfile 'apexScanResults.html'  
                   cd ..
 
             - name: Upload SARIF file
