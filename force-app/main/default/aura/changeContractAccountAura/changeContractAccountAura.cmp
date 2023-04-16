@@ -1,0 +1,5 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader,lightning:isUrlAddressable,flexipage:availableForAllPageTypes" access="global">
+    <ltng:require styles="{!$Resource.ModalWidthCSS}"/>  
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <c:changeContractAccountLWC recordId="{!v.recordId}" onrecordChange="{!c.refreshView}" onclose="{!c.closeQA}"></c:changeContractAccountLWC>
+</aura:component>
