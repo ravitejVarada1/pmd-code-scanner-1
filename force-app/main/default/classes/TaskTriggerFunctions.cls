@@ -1,3 +1,4 @@
+//TEST
 public class TaskTriggerFunctions {
     @testVisible
     private static Boolean skipDialpadMatch = false;
