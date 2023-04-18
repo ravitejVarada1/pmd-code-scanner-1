@@ -81,13 +81,6 @@ jobs:
             - name: 'Installing SFDX scanner'
               run: sfdx plugins:install @salesforce/sfdx-scanner
 
-            # Get the Integration Org SFDX URL and store it in a text file
-            - name: 'Populate auth file with SFDX_URL secret of integration org'
-              shell: bash
-              run: |
-                  echo ${{ secrets.SFDX_INTEGRATION_URL}} > ./SFDX_INTEGRATION_URL.txt
-
-
             # We use SFDX Git Delta to create a directory with only the metadata that has changed, this allows us
             # to deploy only those changes, as opposed to deploying the entire branch. This helps reducing deployment times
             - name: 'Create delta packages for new, modified or deleted metadata'
