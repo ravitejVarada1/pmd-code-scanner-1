@@ -73,6 +73,28 @@ jobs:
                   echo y | sfdx plugins:install sfdx-git-delta
                   sfdx plugins 
 
+
+    # Write User Token to File
+      - name: Write User Token
+        env:
+          DYNAMIC_SECRET: ${{ secrets[env.JWT_KEY] }}
+        if: env.DYNAMIC_SECRET != null
+        run: "echo ${{ secrets[env.JWT_KEY] }} > token.txt"
+
+      # If no user token, use default
+      - name: Write Default Token
+        env:
+          DYNAMIC_SECRET: ${{ secrets[env.JWT_KEY] }}
+        if: env.DYNAMIC_SECRET == null
+        run: "echo ${{ secrets.JWT_KEY }} > token.txt"
+
+     # Auth to devhub with stored token
+      - name: Auth with DevHub
+        run: "sfdx force:auth:jwt:grant --clientid=${{ secrets.CLIENT_KEY  }} --jwtkeyfile=token.txt --username=${{ secrets.USER_NAME }} --setdefaultdevhubusername --setalias devjwt"
+
+
+
+
             # Install java
             - name: 'Installing java'
               run: sudo apt-get install openjdk-8-jdk
