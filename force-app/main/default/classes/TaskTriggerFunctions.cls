@@ -448,7 +448,7 @@ public class TaskTriggerFunctions {
                 AND Account__c IN :digitalDealTasks.keySet()
                 ORDER BY createdDate DESC NULLS LAST
             ]);
-            // SA-210 : loop through tasks associating to survey results
+            // SA-210 : loddddop through tasks associating to survey results
             for (Task t : digitalDealTasks.values()) {
                 for (Survey_Results__c result : digitalDealsSurveyResultsList) {
                     if (result.Account__c == t.Related_Account__c) {
