@@ -376,6 +376,7 @@ public class TaskTriggerFunctions {
 			}
 
 			if (t.whatId != null) {
+                Testing
 				String objectAPIName = t.what.type;
 				if (objectAPIName == 'Case') {
 					if (t.Subject != null
