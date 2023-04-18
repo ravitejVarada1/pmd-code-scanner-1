@@ -58,7 +58,7 @@ public class TaskTriggerFunctions {
         Set<ID> userOwnedLeads = new Set<ID>();
         Set<ID> userOwnedCases = new Set<ID>();
 
-        Id ConsumerSupportCaseRecordTypeId = SObjectDescribeUtils.getRecordTypeIdByDevName('Case', 'Consumer_Support');
+        Id consumerSupportCaseRecordTypeId = SObjectDescribeUtils.getRecordTypeIdByDevName('Case', 'Consumer_Support');
         
         //Loop through tasks to populate the three collections above
         for (Task t : newTasks) {
@@ -138,7 +138,7 @@ public class TaskTriggerFunctions {
                         AND (Master_Call_Id__c IN :callIdToMasterIdMap.values()
                             OR (AccountId IN :accountIds AND isClosed = false)
                         )
-                        AND RecordTypeID = : ConsumerSupportCaseRecordTypeId
+                        AND RecordTypeID = : consumerSupportCaseRecordTypeId
                         ORDER BY createdDate]) // Added under SA-669 to include the most recent case id as value in the map
         {
            masterCallIdCSCaseMap.put(c.Master_Call_Id__c, c.Id);
@@ -181,7 +181,7 @@ public class TaskTriggerFunctions {
                         case2QueryMap.put(c.Id, c);
                     }
 
-                    if(c.RecordTypeID != ConsumerSupportCaseRecordTypeId){
+                    if(c.RecordTypeID != consumerSupportCaseRecordTypeId){
                         phoneCaseMap.put(formattedDialpadPhone, c.Id);
                     } else if(!phoneCaseMap.keyset().contains(formattedDialpadPhone)){
                         phoneCaseMap.put(formattedDialpadPhone, c.Id);
@@ -331,7 +331,7 @@ public class TaskTriggerFunctions {
                        WHERE Id IN :caseToCorrectAccountId.keySet()
                        AND IsClosed = false
                        AND AccountId = null 
-                       AND RecordTypeID != : ConsumerSupportCaseRecordTypeId])
+                       AND RecordTypeID != : consumerSupportCaseRecordTypeId])
         {            
             if (casesToUpdate.containsKey(c.Id)){
                 casesToUpdate.get(c.Id).accountId = caseToCorrectAccountId.get(c.Id);
