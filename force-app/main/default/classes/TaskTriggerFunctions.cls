@@ -1,5 +1,7 @@
-//TEST
+//TEST RAVI HERE tEST 
 public class TaskTriggerFunctions {
+    Public String fiestName;
+
     @testVisible
     private static Boolean skipDialpadMatch = false;
     
@@ -56,7 +58,7 @@ public class TaskTriggerFunctions {
         Set<ID> userOwnedLeads = new Set<ID>();
         Set<ID> userOwnedCases = new Set<ID>();
 
-        Id ConsumerSupportCaseRecordTypeId = SObjectDescribeUtils.getRecordTypeIdByDevName('Case', 'Consumer_Support');
+        Id consumerSupportCaseRecordTypeId = SObjectDescribeUtils.getRecordTypeIdByDevName('Case', 'Consumer_Support');
         
         //Loop through tasks to populate the three collections above
         for (Task t : newTasks) {
@@ -136,7 +138,7 @@ public class TaskTriggerFunctions {
                         AND (Master_Call_Id__c IN :callIdToMasterIdMap.values()
                             OR (AccountId IN :accountIds AND isClosed = false)
                         )
-                        AND RecordTypeID = : ConsumerSupportCaseRecordTypeId
+                        AND RecordTypeID = : consumerSupportCaseRecordTypeId
                         ORDER BY createdDate]) // Added under SA-669 to include the most recent case id as value in the map
         {
            masterCallIdCSCaseMap.put(c.Master_Call_Id__c, c.Id);
@@ -179,7 +181,7 @@ public class TaskTriggerFunctions {
                         case2QueryMap.put(c.Id, c);
                     }
 
-                    if(c.RecordTypeID != ConsumerSupportCaseRecordTypeId){
+                    if(c.RecordTypeID != consumerSupportCaseRecordTypeId){
                         phoneCaseMap.put(formattedDialpadPhone, c.Id);
                     } else if(!phoneCaseMap.keyset().contains(formattedDialpadPhone)){
                         phoneCaseMap.put(formattedDialpadPhone, c.Id);
@@ -329,7 +331,7 @@ public class TaskTriggerFunctions {
                        WHERE Id IN :caseToCorrectAccountId.keySet()
                        AND IsClosed = false
                        AND AccountId = null 
-                       AND RecordTypeID != : ConsumerSupportCaseRecordTypeId])
+                       AND RecordTypeID != : consumerSupportCaseRecordTypeId])
         {            
             if (casesToUpdate.containsKey(c.Id)){
                 casesToUpdate.get(c.Id).accountId = caseToCorrectAccountId.get(c.Id);
@@ -374,6 +376,7 @@ public class TaskTriggerFunctions {
 			}
 
 			if (t.whatId != null) {
+                Testing
 				String objectAPIName = t.what.type;
 				if (objectAPIName == 'Case') {
 					if (t.Subject != null
@@ -445,7 +448,7 @@ public class TaskTriggerFunctions {
                 AND Account__c IN :digitalDealTasks.keySet()
                 ORDER BY createdDate DESC NULLS LAST
             ]);
-            // SA-210 : loop through tasks associating to survey results
+            // SA-210 : loddddop through tasks associating to survey results
             for (Task t : digitalDealTasks.values()) {
                 for (Survey_Results__c result : digitalDealsSurveyResultsList) {
                     if (result.Account__c == t.Related_Account__c) {
