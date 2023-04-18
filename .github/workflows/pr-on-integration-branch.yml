@@ -100,7 +100,7 @@ jobs:
             - name: 'Scan code'
               run: |
                   cd changed-sources
-                  sfdx scanner:run --format sarif --target './**/' --category "Design,Best Practices,Performance" --outfile 'report.sarif'  
+                  sfdx scanner:run --format sarif --target './**/' --category "Design,Best Practices,Performance" --outfile 'pmd-report.sarif'  
                   cd ..
 
              - name: Upload SARIF file
