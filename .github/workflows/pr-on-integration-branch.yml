@@ -100,14 +100,14 @@ jobs:
             - name: 'Scan code'
               run: |
                   cd changed-sources
-                  sfdx scanner:run --format sarif --target './**/' --category "Design,Best Practices,Performance" --outfile 'pmd-report.sarif'  
+                  sfdx scanner:run --format sarif --target './**/' --category "Design,Best Practices,Performance" --outfile 'results.sarif'  
                   cd ..
 
-             - name: Upload SARIF file
-                uses: github/codeql-action/upload-sarif@v2
-                with:
-                sarif_file: pmd-report.sarif
- 
+            - name: Upload SARIF file
+              uses: github/codeql-action/upload-sarif@v2
+              with:
+                sarif_file: changed-sources/results.sarif
+
             # We do a check-only depploy and we only run the tests specified in the PR
             # If the env variable does not equal 'all', we know that there is a list of
             # tests that can be run
